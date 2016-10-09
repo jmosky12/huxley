@@ -19,7 +19,8 @@
             ContactTypes = {{ contact_types|safe }};
             ProgramTypes = {{ program_types|safe }};
         </script>
-        {% javascript 'huxley' %}
+        {% load static %}
+        <script type="text/javascript" src="{% static 'js/bundle.js' %}"></script>
     {% endblock js %}
 </head>
 <body>
