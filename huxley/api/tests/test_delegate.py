@@ -108,14 +108,7 @@ class DelegateDetailPutTestCase(tests.UpdateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": self.delegate.voting,
-            "session_one": self.delegate.session_one,
-            "session_two": self.delegate.session_two,
-            "session_three": self.delegate.session_three,
-            "session_four": self.delegate.session_four
+            "email": unicode(self.params['email'])
         })
 
     def test_superuser(self):
@@ -200,14 +193,7 @@ class DelegateDetailPatchTestCase(tests.PartialUpdateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": self.delegate.voting,
-            "session_one": self.delegate.session_one,
-            "session_two": self.delegate.session_two,
-            "session_three": self.delegate.session_three,
-            "session_four": self.delegate.session_four
+            "email": unicode(self.params['email'])
         })
 
     def test_superuser(self):

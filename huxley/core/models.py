@@ -288,9 +288,23 @@ post_save.connect(Registration.email_comments, sender=Registration)
 post_save.connect(Registration.email_confirmation, sender=Registration)
 
 
+class AssignmentSummary(models.Model):
+    summary = models.TextField(default='', blank=True, null=True)
+    published_summary = models.TextField(default='', blank=True, null=True)
+
+    voting = models.BooleanField(default=False)
+    session_one = models.BooleanField(default=False)
+    session_two = models.BooleanField(default=False)
+    session_three = models.BooleanField(default=False)
+    session_four = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = u'assignment_summary'
+
 class Assignment(models.Model):
     committee = models.ForeignKey(Committee)
     country = models.ForeignKey(Country)
+    summary = models.ForeignKey(AssignmentSummary, null=True, blank=True)
     school = models.ForeignKey(School, null=True, blank=True, default=None)
     registration = models.ForeignKey(Registration, null=True)
     rejected = models.BooleanField(default=False)
@@ -347,7 +361,7 @@ class Assignment(models.Model):
                 school = School(name=school + ' - DOES NOT EXIST')
                 is_invalid = True
             if is_invalid:
-                #TODO When an assignment with a non-unicode character appears 
+                #TODO When an assignment with a non-unicode character appears
                 #     (ie "Cote d'Ivoire" but with the accent over the "o"),
                 #     Throws a UnicodeEncodeError
                 failed_assignments.append(
@@ -469,6 +483,13 @@ class Delegate(models.Model):
     def committee(self):
         if self.assignment:
             return self.assignment.committee
+
+        return None
+
+    @property
+    def summary(self):
+        if self.assignment:
+            return self.assignment.summary
 
         return None
 
