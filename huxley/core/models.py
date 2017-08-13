@@ -289,6 +289,7 @@ post_save.connect(Registration.email_confirmation, sender=Registration)
 
 
 class AssignmentSummary(models.Model):
+    name = models.CharField(default='define_committee:define_country',max_length=100)
     summary = models.TextField(default='', blank=True, null=True)
     published_summary = models.TextField(default='', blank=True, null=True)
 
@@ -298,16 +299,19 @@ class AssignmentSummary(models.Model):
     session_three = models.BooleanField(default=False)
     session_four = models.BooleanField(default=False)
 
+    def __unicode__(self):
+        return self.name
+
     class Meta:
         db_table = u'assignment_summary'
 
 class Assignment(models.Model):
     committee = models.ForeignKey(Committee)
     country = models.ForeignKey(Country)
-    summary = models.ForeignKey(AssignmentSummary, null=True, blank=True)
     school = models.ForeignKey(School, null=True, blank=True, default=None)
     registration = models.ForeignKey(Registration, null=True)
     rejected = models.BooleanField(default=False)
+    summary = models.ForeignKey(AssignmentSummary, null=True, blank=True)
 
     @classmethod
     def update_assignments(cls, new_assignments):
@@ -326,17 +330,18 @@ class Assignment(models.Model):
         assigned = set()
         failed_assignments = []
 
-        def add(committee, country, registration, rejected):
+        def add(committee, country, school, rejected, summary):
             additions.append(
                 cls(committee_id=committee.id,
                     country_id=country.id,
-                    registration_id=registration.id,
-                    rejected=rejected, ))
+                    school_id=school.id,
+                    rejected=rejected,
+                    summary_id=summary.id, ))
 
         def remove(assignment_data):
             deletions.append(assignment_data['id'])
 
-        for committee, country, school, rejected in new_assignments:
+        for committee, country, school, rejected, summary in new_assignments:
             key = (committee.id, country.id)
             if key in assigned:
                 # Make sure that the same committee/country pair is not being
@@ -352,20 +357,27 @@ class Assignment(models.Model):
             # have the type of its corresponding model.
             is_invalid = False
             if type(committee) is not Committee:
+                print("Committee")
                 committee = Committee(name=committee + ' - DOES NOT EXIST')
                 is_invalid = True
             if type(country) is not Country:
+                print("Country")
                 country = Country(name=country + ' - DOES NOT EXIST')
                 is_invalid = True
             if type(school) is not School:
+                print("School")
                 school = School(name=school + ' - DOES NOT EXIST')
+                is_invalid = True
+            if type(summary) is not AssignmentSummary:
+                print("Summary")
+                summary = AssignmentSummary(name=summary + ' summary - DOES NOT EXIST')
                 is_invalid = True
             if is_invalid:
                 #TODO When an assignment with a non-unicode character appears
                 #     (ie "Cote d'Ivoire" but with the accent over the "o"),
                 #     Throws a UnicodeEncodeError
                 failed_assignments.append(
-                    str((str(school.name), str(committee.name), str(country.name))))
+                    str((str(school.name), str(committee.name), str(country.name), str(summary.name))))
                 continue
 
             registration = School.objects.get(id=school.id)
@@ -373,14 +385,14 @@ class Assignment(models.Model):
             old_assignment = assignment_dict.get(key)
 
             if not old_assignment:
-                add(committee, country, registration, rejected)
+                add(committee, country, school, rejected, summary)
                 continue
 
             if old_assignment['registration_id'] != registration:
                 # Remove the old assignment instead of just updating it
                 # so that its delegates are deleted by cascade.
                 remove(old_assignment)
-                add(committee, country, registration, rejected)
+                add(committee, country, school, rejected, summary)
 
             del assignment_dict[key]
 
@@ -486,10 +498,55 @@ class Delegate(models.Model):
 
         return None
 
+    #These worth keeping these for backwards compatibility purposes?
     @property
     def summary(self):
-        if self.assignment:
-            return self.assignment.summary
+        # Returning summary text would make this backwards compatible
+        # But the summary object would have to be accessed through self.assignment.summary
+        if self.assignment and self.assignment.summary:
+            return self.assignment.summary.summary
+
+        return None
+
+    @property
+    def published_summary(self):
+        if self.assignment and self.assignment.summary:
+            return self.assignment.summary.published_summary
+
+        return None
+
+    @property
+    def voting(self):
+        if self.assignment and self.assignment.summary:
+            return self.assignment.summary.voting
+
+        return None
+
+    @property
+    def session_one(self):
+        if self.assignment and self.assignment.summary:
+            return self.assignment.summary.session_one
+
+        return None
+
+    @property
+    def session_two(self):
+        if self.assignment and self.assignment.summary:
+            return self.assignment.summary.session_two
+
+        return None
+
+    @property
+    def session_three(self):
+        if self.assignment and self.assignment.summary:
+            return self.assignment.summary.session_three
+
+        return None
+
+    @property
+    def session_four(self):
+        if self.assignment and self.assignment.summary:
+            return self.assignment.summary.session_four
 
         return None
 
