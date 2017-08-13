@@ -26,10 +26,6 @@ class DelegateAdmin(admin.ModelAdmin):
                 'School',
                 'Committee',
                 'Country',
-                'Session One',
-                'Session Two',
-                'Session Three',
-                'Session Four'
             ])
 
         ordering = 'assignment__registration__school__name'
@@ -39,10 +35,12 @@ class DelegateAdmin(admin.ModelAdmin):
                 delegate.school,
                 delegate.committee,
                 delegate.country,
+                delegate.school,
                 delegate.session_one,
                 delegate.session_two,
                 delegate.session_three,
                 delegate.session_four
+                delegate.school,
             ])
 
         return roster
