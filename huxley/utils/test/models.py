@@ -8,7 +8,7 @@ from django.core.exceptions import PermissionDenied
 
 from huxley.accounts.models import User
 from huxley.core.constants import ContactGender, ContactType, ProgramTypes
-from huxley.core.models import School, Committee, Country, Delegate, Assignment, Registration, Conference
+from huxley.core.models import School, Committee, Country, Delegate, Assignment, AssignmentSummary, Registration, Conference
 
 if not settings.TESTING:
     raise PermissionDenied
@@ -115,8 +115,7 @@ def new_delegate(**kwargs):
         assignment=a,
         school=s,
         name=kwargs.pop('name', 'Nate Parke'),
-        email=kwargs.pop('email', 'nate@earthlink.gov'),
-        summary=kwargs.pop('summary', 'He did well!'), )
+        email=kwargs.pop('email', 'nate@earthlink.gov'), )
     d.save()
 
     if user:
@@ -129,15 +128,28 @@ def new_assignment(**kwargs):
     test_committee = kwargs.pop('committee', None) or new_committee()
     test_registration = kwargs.pop('registration', None) or new_registration()
     test_country = kwargs.pop('country', None) or new_country()
+    test_summary = kwargs.pop('summary', None) or new_assignment_summary()
 
     a = Assignment(
         committee=test_committee,
         registration=test_registration,
         country=test_country,
+        summary=test_summary,
         rejected=kwargs.pop('rejected', False), )
     a.save()
     return a
 
+def new_assignment_summary(**kwargs):
+    test_name = kwargs.pop('name', None) or 'DISEC:Pakistan'
+    test_summary = kwargs.pop('summary', None) or 'Lame Public Speakers'
+    test_published_summary = kwargs.pop('published_summary', None) or 'Delegates could improve speaking skills'
+
+    val = AssignmentSummary(
+        name=test_name,
+        summary=test_summary,
+        published_summary=test_published_summary, )
+    val.save()
+    return val
 
 def new_registration(**kwargs):
     test_school = kwargs.pop('school', None) or new_school()

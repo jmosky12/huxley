@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
 
-from huxley.core.models import (Assignment, Committee, Conference, Country,
+from huxley.core.models import (Assignment, AssignmentSummary, Committee, Conference, Country,
                                 CountryPreference, Delegate)
 from huxley.utils.test import models
 
@@ -95,19 +95,20 @@ class AssignmentTest(TestCase):
 
         # TODO: Also assert on delegate deletion.
         updates = [
-            (cm1, ct1, s1, False),
-            (cm1, ct2, s1, False),
-            (cm1, ct3, s1, False),  # ADDED
+            (cm1, ct1, s1, False, as1),
+            (cm1, ct2, s1, False, as1),
+            (cm1, ct3, s1, False, as1),  # ADDED
             # (cm2, ct1, s1), # DELETED
-            (cm2, ct2, s2, False),  # UPDATED
-            (cm2, ct3, s2, False),  # ADDED
+            (cm2, ct2, s2, False, as2),  # UPDATED
+            (cm2, ct3, s2, False, as2),  # ADDED
         ]
 
         Assignment.update_assignments(updates)
         new_assignments = [a[1:]
                            for a in Assignment.objects.all().values_list()]
         delegates = Delegate.objects.all()
-        updates = [(cm.id, ct.id, s.id, rej) for cm, ct, s, rej in updates]
+        updates = [(cm.id, ct.id, s.id, None, rej)
+                   for cm, ct, s, rej in updates]
         self.assertEquals(set(updates), set(new_assignments))
         self.assertEquals(len(delegates), 2)
 
@@ -131,6 +132,9 @@ class AssignmentTest(TestCase):
         self.assertEquals(a.delegates.count(), 0)
         self.assertEquals(a.rejected, False)
 
+class AssignmentSummaryTest(TestCase):
+    #TODO
+    pass
 
 class CountryPreferenceTest(TestCase):
     def test_uniqueness(self):
