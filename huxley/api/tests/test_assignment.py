@@ -51,7 +51,6 @@ class AssignmentDetailPutTestCase(tests.UpdateAPITestCase):
         self.committee = models.new_committee(user=self.chair)
         self.assignment = models.new_assignment(
             committee=self.committee, registration=self.registration)
-<<<<<<< 4a2c353026ad5b333a76fe8ab6e9a2d688447283
         self.delegate_user = models.new_user(
             username='delegate',
             password='delegate',
@@ -60,11 +59,8 @@ class AssignmentDetailPutTestCase(tests.UpdateAPITestCase):
             user=self.delegate_user,
             school=self.school,
             assignment=self.assignment)
-||||||| merged common ancestors
-=======
         self.summary = models.new_assignment_summary(
             name='Jake', summary='10/10', published_summary='Amazing')
->>>>>>> Initial API implementation for AssignmentSummary
 
     def test_anonymous_user(self):
         '''Unauthenticated users shouldn't be able to update assignments.'''
@@ -132,6 +128,8 @@ class AssignmentDetailPatchTestCase(tests.PartialUpdateAPITestCase):
             user=self.delegate_user,
             school=self.school,
             assignment=self.assignment)
+        self.summary = models.new_assignment_summary(
+            name='Jake', summary='10/10', published_summary='Amazing')
 
     def test_anonymous_user(self):
         '''Unauthenticated users shouldn't be able to update assignments.'''
@@ -232,6 +230,8 @@ class AssignmentListCreateTestCase(tests.CreateAPITestCase):
             username='delegate',
             password='delegate',
             user_type=User.TYPE_DELEGATE)
+        self.summary = models.new_assignment_summary(
+            name='Jake', summary='10/10', published_summary='Amazing')
         self.params['committee'] = self.committee.id
         self.params['registration'] = self.registration.id
         self.params['country'] = self.country.id
