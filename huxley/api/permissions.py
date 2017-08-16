@@ -135,6 +135,18 @@ class AssignmentListPermission(permissions.BasePermission):
 
         return False
 
+class AssignmentListPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.is_superuser:
+            return True
+
+        if request.method in permissions.SAFE_METHODS:
+            assignment_id = request.query_params.get('assignment_id', -1)
+            return (user_is_chair(request, view, committee_id) or
+                    user_is_advisor(request, view, school_id))
+
+        return False
+
 
 class DelegateDetailPermission(permissions.BasePermission):
     '''Accept requests to retrieve, update, and destroy a delegate from the

@@ -51,6 +51,7 @@ class AssignmentDetailPutTestCase(tests.UpdateAPITestCase):
         self.committee = models.new_committee(user=self.chair)
         self.assignment = models.new_assignment(
             committee=self.committee, registration=self.registration)
+<<<<<<< 4a2c353026ad5b333a76fe8ab6e9a2d688447283
         self.delegate_user = models.new_user(
             username='delegate',
             password='delegate',
@@ -59,6 +60,11 @@ class AssignmentDetailPutTestCase(tests.UpdateAPITestCase):
             user=self.delegate_user,
             school=self.school,
             assignment=self.assignment)
+||||||| merged common ancestors
+=======
+        self.summary = models.new_assignment_summary(
+            name='Jake', summary='10/10', published_summary='Amazing')
+>>>>>>> Initial API implementation for AssignmentSummary
 
     def test_anonymous_user(self):
         '''Unauthenticated users shouldn't be able to update assignments.'''
@@ -75,6 +81,7 @@ class AssignmentDetailPutTestCase(tests.UpdateAPITestCase):
             "country": self.assignment.country.id,
             "registration": self.registration.id,
             "rejected": True,
+            "summary": self.summary.id,
         })
 
     def test_chair(self):
@@ -100,6 +107,7 @@ class AssignmentDetailPutTestCase(tests.UpdateAPITestCase):
             "country": self.assignment.country.id,
             "registration": self.registration.id,
             "rejected": True,
+            "summary": self.summary.id,
         })
 
 
@@ -140,6 +148,7 @@ class AssignmentDetailPatchTestCase(tests.PartialUpdateAPITestCase):
             "country": self.assignment.country.id,
             "registration": self.registration.id,
             "rejected": True,
+            "summary": self.summary.id,
         })
 
     def test_chair(self):
@@ -165,6 +174,7 @@ class AssignmentDetailPatchTestCase(tests.PartialUpdateAPITestCase):
             "country": self.assignment.country.id,
             "registration": self.registration.id,
             "rejected": True,
+            "summary": self.summary.id,
         })
 
 
@@ -225,6 +235,7 @@ class AssignmentListCreateTestCase(tests.CreateAPITestCase):
         self.params['committee'] = self.committee.id
         self.params['registration'] = self.registration.id
         self.params['country'] = self.country.id
+        self.params['summary'] = self.summary.id
 
     def test_anonymous_user(self):
         '''Anonymous Users should not be able to create assignments.'''
@@ -261,6 +272,7 @@ class AssignmentListCreateTestCase(tests.CreateAPITestCase):
             "country": self.country.id,
             "registration": self.registration.id,
             "rejected": True,
+            "summary": self.summary.id,
         })
 
 
@@ -278,6 +290,8 @@ class AssignmentListGetTestCase(tests.ListAPITestCase):
         self.school = models.new_school(user=self.advisor)
         self.registration = models.new_registration(school=self.school)
         self.committee = models.new_committee(user=self.chair)
+        self.summary = models.new_assignment_summary(
+            name='Jake', summary='10/10', published_summary='Amazing')
         self.a1 = models.new_assignment(
             registration=self.registration, committee=self.committee)
         self.a2 = models.new_assignment(
@@ -351,4 +365,5 @@ class AssignmentListGetTestCase(tests.ListAPITestCase):
             'committee': a.committee_id,
             'registration': a.registration_id,
             'rejected': a.rejected,
+            'summary': a.summary_id,
         } for a in assignments])

@@ -45,9 +45,7 @@ class DelegateDetailPutTestCase(tests.UpdateAPITestCase):
     url_name = 'api:delegate_detail'
     params = {
         'name': 'Trevor Dowds',
-        'email': 'tdowds@hotmail.org',
-        'summary': 'He did awful!',
-        'published_summary': 'He moderately underperformed expectations.'
+        'email': 'tdowds@hotmail.org'
     }
 
     def setUp(self):
@@ -84,14 +82,7 @@ class DelegateDetailPutTestCase(tests.UpdateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": self.delegate.voting,
-            "session_one": self.delegate.session_one,
-            "session_two": self.delegate.session_two,
-            "session_three": self.delegate.session_three,
-            "session_four": self.delegate.session_four
+            "email": unicode(self.params['email'])
         })
 
     def test_chair(self):
@@ -104,14 +95,7 @@ class DelegateDetailPutTestCase(tests.UpdateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": self.delegate.voting,
-            "session_one": self.delegate.session_one,
-            "session_two": self.delegate.session_two,
-            "session_three": self.delegate.session_three,
-            "session_four": self.delegate.session_four
+            "email": unicode(self.params['email'])
         })
 
     def test_delegate(self):
@@ -145,14 +129,7 @@ class DelegateDetailPutTestCase(tests.UpdateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": self.delegate.voting,
-            "session_one": self.delegate.session_one,
-            "session_two": self.delegate.session_two,
-            "session_three": self.delegate.session_three,
-            "session_four": self.delegate.session_four
+            "email": unicode(self.params['email'])
         })
 
 
@@ -160,9 +137,7 @@ class DelegateDetailPatchTestCase(tests.PartialUpdateAPITestCase):
     url_name = 'api:delegate_detail'
     params = {
         'name': 'Trevor Dowds',
-        'email': 'tdowds@hotmail.org',
-        'summary': 'He did awful!',
-        'published_summary': 'He moderately underperformed expectations.'
+        'email': 'tdowds@hotmail.org'
     }
 
     def setUp(self):
@@ -199,13 +174,7 @@ class DelegateDetailPatchTestCase(tests.PartialUpdateAPITestCase):
             "school": self.school.id,
             "name": unicode(self.params['name']),
             "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": self.delegate.voting,
-            "session_one": self.delegate.session_one,
-            "session_two": self.delegate.session_two,
-            "session_three": self.delegate.session_three,
-            "session_four": self.delegate.session_four
+            "summary": unicode(self.params['summary'])
         })
 
     def test_chair(self):
@@ -218,14 +187,7 @@ class DelegateDetailPatchTestCase(tests.PartialUpdateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": self.delegate.voting,
-            "session_one": self.delegate.session_one,
-            "session_two": self.delegate.session_two,
-            "session_three": self.delegate.session_three,
-            "session_four": self.delegate.session_four
+            "email": unicode(self.params['email'])
         })
 
     def test_delegate(self):
@@ -259,14 +221,7 @@ class DelegateDetailPatchTestCase(tests.PartialUpdateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": self.delegate.voting,
-            "session_one": self.delegate.session_one,
-            "session_two": self.delegate.session_two,
-            "session_three": self.delegate.session_three,
-            "session_four": self.delegate.session_four
+            "email": unicode(self.params['email'])
         })
 
 
@@ -311,9 +266,7 @@ class DelegateListCreateTestCase(tests.CreateAPITestCase):
     url_name = 'api:delegate_list'
     params = {
         'name': 'Trevor Dowds',
-        'email': 'tdowds@hotmail.org',
-        'summary': 'He did awful!',
-        'published_summary': 'He moderately underperformed expectations.'
+        'email': 'tdowds@hotmail.org'
     }
 
     def setUp(self):
@@ -351,14 +304,7 @@ class DelegateListCreateTestCase(tests.CreateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": False,
-            "session_one": False,
-            "session_two": False,
-            "session_three": False,
-            "session_four": False
+            "email": unicode(self.params['email'])
         })
 
     def test_chair(self):
@@ -390,14 +336,7 @@ class DelegateListCreateTestCase(tests.CreateAPITestCase):
             "assignment": self.assignment.id,
             "school": self.school.id,
             "name": unicode(self.params['name']),
-            "email": unicode(self.params['email']),
-            "summary": unicode(self.params['summary']),
-            "published_summary": unicode(self.params['published_summary']),
-            "voting": False,
-            "session_one": False,
-            "session_two": False,
-            "session_three": False,
-            "session_four": False
+            "email": unicode(self.params['email'])
         })
 
 
@@ -423,8 +362,7 @@ class DelegateListGetTestCase(tests.ListAPITestCase):
         self.delegate2 = models.new_delegate(
             assignment=self.assignment2,
             name='Trevor Dowds',
-            email='t@dowds.com',
-            summary='Good!')
+            email='t@dowds.com')
 
     def test_anonymous_user(self):
         '''It rejects a request from an anonymous user.'''
@@ -495,15 +433,7 @@ class DelegateListGetTestCase(tests.ListAPITestCase):
                     'school': delegates[i].school.id,
                     'name': unicode(delegates[i].name),
                     'email': unicode(delegates[i].email),
-                    'summary': unicode(delegates[i].summary),
-                    'published_summary':
-                    unicode(delegates[i].published_summary),
-                    'created_at': delegates[i].created_at.isoformat(),
-                    "voting": delegates[i].voting,
-                    'session_one': delegates[i].session_one,
-                    'session_two': delegates[i].session_two,
-                    'session_three': delegates[i].session_three,
-                    'session_four': delegates[i].session_four
+                    'created_at': delegates[i].created_at.isoformat()
                 })
 
 
@@ -578,14 +508,7 @@ class DelegateListPartialUpdateTestCase(tests.PartialUpdateAPITestCase):
                 'school': self.delegate1.school.id,
                 'name': unicode(self.delegate1.name),
                 'email': unicode(self.delegate1.email),
-                'summary': unicode(self.delegate1.summary),
-                'published_summary': unicode(self.delegate1.published_summary),
-                'created_at': self.delegate1.created_at.isoformat(),
-                'voting': self.delegate1.voting,
-                "session_one": self.delegate1.session_one,
-                "session_two": self.delegate1.session_two,
-                "session_three": self.delegate1.session_three,
-                "session_four": self.delegate1.session_four
+                'created_at': self.delegate1.created_at.isoformat()
             }, )
         self.assertEqual(
             dict(response.data[1]),
@@ -595,14 +518,7 @@ class DelegateListPartialUpdateTestCase(tests.PartialUpdateAPITestCase):
                 'school': self.delegate2.school.id,
                 'name': unicode(self.delegate2.name),
                 'email': unicode(self.delegate2.email),
-                'summary': unicode(self.delegate2.summary),
-                'published_summary': unicode(self.delegate2.published_summary),
-                'created_at': self.delegate2.created_at.isoformat(),
-                'voting': self.delegate2.voting,
-                "session_one": self.delegate2.session_one,
-                "session_two": self.delegate2.session_two,
-                "session_three": self.delegate2.session_three,
-                "session_four": self.delegate2.session_four
+                'created_at': self.delegate2.created_at.isoformat()
             }, )
 
     def test_advisor_fail(self):
@@ -639,14 +555,7 @@ class DelegateListPartialUpdateTestCase(tests.PartialUpdateAPITestCase):
                 'school': self.delegate1.school.id,
                 'name': unicode(self.delegate1.name),
                 'email': unicode(self.delegate1.email),
-                'summary': unicode(self.delegate1.summary),
-                'published_summary': unicode(self.delegate1.published_summary),
-                'created_at': self.delegate1.created_at.isoformat(),
-                'voting': self.delegate1.voting,
-                "session_one": self.delegate1.session_one,
-                "session_two": self.delegate1.session_two,
-                "session_three": self.delegate1.session_three,
-                "session_four": self.delegate1.session_four
+                'created_at': self.delegate1.created_at.isoformat()
             }, )
         self.assertEqual(
             dict(response.data[1]),
@@ -656,14 +565,7 @@ class DelegateListPartialUpdateTestCase(tests.PartialUpdateAPITestCase):
                 'school': self.delegate3.school.id,
                 'name': unicode(self.delegate3.name),
                 'email': unicode(self.delegate3.email),
-                'summary': unicode(self.delegate3.summary),
-                'published_summary': unicode(self.delegate3.published_summary),
-                'created_at': self.delegate3.created_at.isoformat(),
-                'voting': self.delegate3.voting,
-                "session_one": self.delegate3.session_one,
-                "session_two": self.delegate3.session_two,
-                "session_three": self.delegate3.session_three,
-                "session_four": self.delegate3.session_four
+                'created_at': self.delegate3.created_at.isoformat()
             }, )
 
     def test_chair_fail(self):
@@ -726,14 +628,7 @@ class DelegateListPartialUpdateTestCase(tests.PartialUpdateAPITestCase):
                 'school': self.delegate1.school.id,
                 'name': unicode(self.delegate1.name),
                 'email': unicode(self.delegate1.email),
-                'summary': unicode(self.delegate1.summary),
-                'published_summary': unicode(self.delegate1.published_summary),
-                'created_at': self.delegate1.created_at.isoformat(),
-                'voting': self.delegate1.voting,
-                "session_one": self.delegate1.session_one,
-                "session_two": self.delegate1.session_two,
-                "session_three": self.delegate1.session_three,
-                "session_four": self.delegate1.session_four
+                'created_at': self.delegate1.created_at.isoformat()
             }, )
         self.assertEqual(
             dict(response.data[1]),
@@ -743,14 +638,7 @@ class DelegateListPartialUpdateTestCase(tests.PartialUpdateAPITestCase):
                 'school': self.delegate2.school.id,
                 'name': unicode(self.delegate2.name),
                 'email': unicode(self.delegate2.email),
-                'summary': unicode(self.delegate2.summary),
-                'published_summary': unicode(self.delegate2.published_summary),
-                'created_at': self.delegate2.created_at.isoformat(),
-                'voting': self.delegate2.voting,
-                "session_one": self.delegate2.session_one,
-                "session_two": self.delegate2.session_two,
-                "session_three": self.delegate2.session_three,
-                "session_four": self.delegate2.session_four
+                'created_at': self.delegate2.created_at.isoformat()
             }, )
 
     def test_superuser_fail(self):
