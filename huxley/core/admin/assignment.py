@@ -30,12 +30,6 @@ class AssignmentAdmin(admin.ModelAdmin):
                 'School',
                 'Committee',
                 'Country',
-                'Published Summary',
-                'Summary',
-                'Session One',
-                'Session Two',
-                'Session Three',
-                'Session Four',
                 'Rejected'
             ])
 
@@ -45,12 +39,6 @@ class AssignmentAdmin(admin.ModelAdmin):
                 assignment.registration.school,
                 assignment.committee,
                 assignment.country,
-                assignment.summary.published_summary,
-                assignment.summary.summary,
-                assignment.summary.session_one,
-                assignment.summary.session_two,
-                assignment.summary.session_three,
-                assignment.summary.session_four,
                 assignment.rejected
             ])
 
@@ -80,25 +68,18 @@ class AssignmentAdmin(admin.ModelAdmin):
                 if (row[0]=='School' and row[1]=='Committee' and row[2]=='Country'):
                     continue # skip the first row if it is a header
 
-                if len(row) < 10:
+                while len(row) < 3:
+                    row.append("") # extend the row to have the minimum proper num of columns
+
+                if len(row) < 4:
                     rejected = False # allow for the rejected field to be null
                 else:
-                    rejected = (row[9].lower() == 'true') # use the provided value if admin provides it
-
-                while len(row) < 9:
-                    row.append("") # extend the row to have the minimum proper num of columns
+                    rejected = (row[3].lower() == 'true') # use the provided value if admin provides it
 
                 committee = get_model(Committee, row[1], committees)
                 country = get_model(Country, row[2], countries)
                 school = get_model(School, row[0], schools)
-                summary_name = committee.name + ':' + country.name
-                summary = None
-                try:
-                    summary = AssignmentSummary.objects.get(name=summary_name)
-                except AssignmentSummary.DoesNotExist:
-                    summary = AssignmentSummary(name=summary_name)
-                    summary.save()
-                yield (committee, country, school, rejected, summary)
+                yield (committee, country, school, rejected)
 
 
         failed_rows = Assignment.update_assignments(generate_assignments(reader))

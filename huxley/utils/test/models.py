@@ -128,26 +128,24 @@ def new_assignment(**kwargs):
     test_committee = kwargs.pop('committee', None) or new_committee()
     test_registration = kwargs.pop('registration', None) or new_registration()
     test_country = kwargs.pop('country', None) or new_country()
-    test_summary = kwargs.pop('summary', None) or new_assignment_summary()
 
     a = Assignment(
         committee=test_committee,
         registration=test_registration,
         country=test_country,
-        summary=test_summary,
         rejected=kwargs.pop('rejected', False), )
     a.save()
     return a
 
 def new_assignment_summary(**kwargs):
-    test_name = kwargs.pop('name', None) or 'DISEC:Pakistan'
     test_summary = kwargs.pop('summary', None) or 'Lame Public Speakers'
     test_published_summary = kwargs.pop('published_summary', None) or 'Delegates could improve speaking skills'
+    test_assignment = kwargs.pop('assignment', None) or new_assignment()
 
     val = AssignmentSummary(
-        name=test_name,
         summary=test_summary,
-        published_summary=test_published_summary, )
+        published_summary=test_published_summary, 
+        assignment=test_assignment, )
     val.save()
     return val
 
