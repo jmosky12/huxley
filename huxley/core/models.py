@@ -408,7 +408,7 @@ class Assignment(models.Model):
 
 pre_save.connect(Assignment.update_assignment, sender=Assignment)
 
-class AssignmentSummary(models.Model):
+class Feedback(models.Model):
     summary = models.TextField(default='', blank=True, null=True)
     published_summary = models.TextField(default='', blank=True, null=True)
     assignment = models.ForeignKey(Assignment, blank=True, null=True)
@@ -418,6 +418,12 @@ class AssignmentSummary(models.Model):
     session_two = models.BooleanField(default=False)
     session_three = models.BooleanField(default=False)
     session_four = models.BooleanField(default=False)
+
+    def __unicode__(self):
+      if self.assignment:
+          return self.assignment.__unicode__() + " Feedback"
+
+      return "No Assignment Linked"
 
     class Meta:
         db_table = u'assignmentsummary'

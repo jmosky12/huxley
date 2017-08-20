@@ -8,7 +8,7 @@ from django.core.exceptions import PermissionDenied
 
 from huxley.accounts.models import User
 from huxley.core.constants import ContactGender, ContactType, ProgramTypes
-from huxley.core.models import School, Committee, Country, Delegate, Assignment, AssignmentSummary, Registration, Conference
+from huxley.core.models import School, Committee, Country, Delegate, Assignment, Feedback, Registration, Conference
 
 if not settings.TESTING:
     raise PermissionDenied
@@ -137,12 +137,12 @@ def new_assignment(**kwargs):
     a.save()
     return a
 
-def new_assignment_summary(**kwargs):
+def new_feedback(**kwargs):
     test_summary = kwargs.pop('summary', None) or 'Lame Public Speakers'
     test_published_summary = kwargs.pop('published_summary', None) or 'Delegates could improve speaking skills'
     test_assignment = kwargs.pop('assignment', None) or new_assignment()
 
-    val = AssignmentSummary(
+    val = Feedback(
         summary=test_summary,
         published_summary=test_published_summary, 
         assignment=test_assignment, )

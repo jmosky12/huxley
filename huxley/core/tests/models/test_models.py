@@ -8,8 +8,8 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
 
-from huxley.core.models import (Assignment, AssignmentSummary, Committee, Conference, Country,
-                                CountryPreference, Delegate)
+from huxley.core.models import (Assignment, Committee, Conference, Country,
+                                CountryPreference, Delegate, Feedback)
 from huxley.utils.test import models
 
 
@@ -132,7 +132,7 @@ class AssignmentTest(TestCase):
         self.assertEquals(a.delegates.count(), 0)
         self.assertEquals(a.rejected, False)
 
-class AssignmentSummaryTest(TestCase):
+class FeedbackTest(TestCase):
     #TODO
     pass
 

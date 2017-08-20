@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import html
 
-from huxley.core.models import Assignment, AssignmentSummary, Committee, Country, School
+from huxley.core.models import Assignment, Committee, Country, School
 
 
 class AssignmentAdmin(admin.ModelAdmin):
