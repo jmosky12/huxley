@@ -472,13 +472,6 @@ class Delegate(models.Model):
 
         return None
 
-    @property
-    def summary(self): 
-        if self.assignment:
-            return self.assignment.summary
-        
-        return None
-
     def save(self, *args, **kwargs):
         if (self.assignment_id and self.school_id and
                 self.school_id != self.assignment.registration.school_id):
