@@ -434,26 +434,6 @@ class Assignment(models.Model):
 
 pre_save.connect(Assignment.update_assignment, sender=Assignment)
 
-class Feedback(models.Model):
-    summary = models.TextField(default='', blank=True, null=True)
-    published_summary = models.TextField(default='', blank=True, null=True)
-    assignment = models.ForeignKey(Assignment, blank=True, null=True)
-
-    voting = models.BooleanField(default=False)
-    session_one = models.BooleanField(default=False)
-    session_two = models.BooleanField(default=False)
-    session_three = models.BooleanField(default=False)
-    session_four = models.BooleanField(default=False)
-
-    def __unicode__(self):
-      if self.assignment:
-          return self.assignment.__unicode__() + " Feedback"
-
-      return "No Assignment Linked"
-
-    class Meta:
-        db_table = u'assignmentsummary'
-
 class CountryPreference(models.Model):
     registration = models.ForeignKey(Registration, null=True)
     country = models.ForeignKey(Country, limit_choices_to={'special': False})

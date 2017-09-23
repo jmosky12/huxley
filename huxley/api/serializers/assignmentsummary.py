@@ -3,12 +3,12 @@
 
 from rest_framework import serializers
 
-from huxley.core.models import Feedback
+from huxley.core.models import AssignmentSummary
 
 
 class AssignmentSummarySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Feedback
+        model = AssignmentSummary
         fields = (
         	'id',
         	'name',
