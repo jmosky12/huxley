@@ -3,18 +3,18 @@
 
 from rest_framework import serializers
 
-from huxley.core.models import AssignmentSummary
+from huxley.core.models import Feedback
 
 
 class AssignmentSummarySerializer(serializers.ModelSerializer):
     class Meta:
-        model = AssignmentSummary
+        model = Feedback
         fields = (
-        	'id', 
-        	'name', 
-        	'summary', 
-        	'published_summary', 
-        	'voting', 
+        	'id',
+        	'name',
+        	'summary',
+        	'published_summary',
+        	'voting',
         	'session_one',
         	'session_two',
         	'session_three',

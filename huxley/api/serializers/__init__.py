@@ -2,6 +2,7 @@
 # Use of this source code is governed by a BSD License (see LICENSE).
 
 from .assignment import AssignmentSerializer
+from .assignmentsummary import AssignmentSummarySerializer
 from .committee import CommitteeSerializer
 from .country import CountrySerializer
 from .delegate import DelegateSerializer
