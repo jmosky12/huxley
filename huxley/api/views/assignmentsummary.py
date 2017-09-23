@@ -11,7 +11,7 @@ from huxley.core.models import AssignmentSummary
 
 class AssignmentSummaryList(generics.ListCreateAPIView):
     authentication_classes = (SessionAuthentication, )
-    permission_classes = (permissions.AssignmentListPermission, )
+    permission_classes = (permissions.AssignmentSummaryListPermission, )
     serializer_class = AssignmentSerializer
 
     def get_queryset(self):
@@ -33,7 +33,7 @@ class AssignmentSummaryList(generics.ListCreateAPIView):
 class AssignmentSummaryDetail(generics.RetrieveUpdateAPIView):
     authentication_classes = (SessionAuthentication, )
     queryset = AssignmentSummary.objects.all()
-    permission_classes = (permissions.IsSchoolAssignmentAdvisorOrSuperuser, )
+    permission_classes = (permissions.IsSchoolAssignmentSummaryChairOrSuperuser, )
     serializer_class = AssignmentSummarySerializer
 
     def put(self, request, *args, **kwargs):

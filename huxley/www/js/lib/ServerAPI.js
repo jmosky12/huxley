@@ -37,7 +37,7 @@ var ServerAPI = {
    * Get a list of all assignment summaries for the given school ID.
    */
   getAssignmentSummaries(schoolID) {
-    return _get('/api/assignmentsummaries', {school_id: schoolID});
+    return _get('/api/assignment_summaries', {school_id: schoolID});
   },
 
   /**
@@ -58,7 +58,7 @@ var ServerAPI = {
    * Get a list of all assignment summaries for the given committee ID.
    */
   getCommitteeAssignmentSummaries(committeeID) {
-    return _get('/api/assignments/', {committee_id: committeeID});
+    return _get('/api/assignment_summaries/', {committee_id: committeeID});
   },
 
   /**
@@ -103,7 +103,7 @@ var ServerAPI = {
   },
 
   updateAssignmentSummary(assignmentSummaryID, data) {
-    return _patch(`/api/assignmentsummaries/${assignmentSummaryID}`, data);
+    return _patch(`/api/assignment_summaries/${assignmentSummaryID}`, data);
   },
 
   updateDelegate(delegateID, data) {

@@ -98,8 +98,8 @@ class IsSchoolAssignmentAdvisorOrSuperuser(permissions.BasePermission):
 
 
 class AssignmentDetailPermission(permissions.BasePermission):
-    '''Accept requests to retrieve an assignment from superusers, the advisor of 
-       the assignment's school, the chair of the assignment's committee, and 
+    '''Accept requests to retrieve an assignment from superusers, the advisor of
+       the assignment's school, the chair of the assignment's committee, and
        delegates with the assignment. Only allow superusers and advisors to
        update assignments.'''
 
@@ -121,6 +121,29 @@ class AssignmentDetailPermission(permissions.BasePermission):
             or user_is_chair(request, view, assignment.committee_id) or
             user_is_delegate(request, view, assignment_id, 'assignment'))
 
+class AssignmentSummaryDetailPermission(permissions.BasePermission):
+    '''Accept requests to retrieve an assignment summary from superusers,
+       the advisor of the assignment's school, and the chair of the assignment's
+       committee. Only allow superusers and chairs to update assignments.'''
+
+    def has_permission(self, request, view):
+        if request.user.is_superuser:
+            return True
+
+        assignment_summary_id = view.kwargs.get('pk', None)
+        assignment = Assignment.objects.get(summary_id=assignment_id)
+        user = request.user
+        method = request.method
+
+        if method != 'GET':
+            return user_is_chair(request, view,
+                                   assignment_summary.committee_id)
+
+        return (
+            user_is_advisor(request, view, assignment.registration.school_id)
+            or user_is_chair(request, view, assignment.committee_id) or
+            user_is_delegate(request, view, assignment.id, 'assignment'))
+
 
 class AssignmentListPermission(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -135,13 +158,15 @@ class AssignmentListPermission(permissions.BasePermission):
 
         return False
 
-class AssignmentListPermission(permissions.BasePermission):
+
+class AssignmentSummaryListPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.user.is_superuser:
             return True
 
         if request.method in permissions.SAFE_METHODS:
-            assignment_id = request.query_params.get('assignment_id', -1)
+            school_id = request.query_params.get('school_id', -1)
+            committee_id = request.query_params.get('committee_id', -1)
             return (user_is_chair(request, view, committee_id) or
                     user_is_advisor(request, view, school_id))
 
@@ -215,7 +240,7 @@ class DelegateListPermission(permissions.BasePermission):
 
 
 class SchoolDetailPermission(permissions.BasePermission):
-    '''Accept only the school's advisor, the school's delegates, or 
+    '''Accept only the school's advisor, the school's delegates, or
        superusers to retrieve the school. Accept only superusers and the advisor
        to update the school.'''
 
